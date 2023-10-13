@@ -1,0 +1,17 @@
+version: "2" # docker compose 파일의 버전 지정
+services: # docker compose에서 실행할 서비스를 정의
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181" # 호스트와 컨테이너 간의 포트 매핑 설정. 호스트의 2181 포트와 컨테이너의 2181 포트를 연결하여 zookeeper에 접속할 수 있다.
+  kafka:
+    image: wurstmeister/kafka:2.12-2.5.0
+    container_name: kafka
+    ports:
+      - "9092:9092" # 호스트의 9092 포트와 컨테이너의 9092 포트를 연결하여 kafka 접속할 수 있다.
+    environment: # kafka 컨테이너의 환경 변수를 설정
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1 # kafka 브로커가 사용할 호스트 이름 또는 ip 주소를 설정
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181 # kafka가 zookeeper와 통신하기 위한 주소를 설정
+    volumes: # docker compose가 호스트의 /var/run/docker.sock 파일을 컨테이너 내부의 /var/run/docker.sock 파일과 공유하도록 설정한다.
+      - /var/run/docker.sock:/var/run/docker.sock
