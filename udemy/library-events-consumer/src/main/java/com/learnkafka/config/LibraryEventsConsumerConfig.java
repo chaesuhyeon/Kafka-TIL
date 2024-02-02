@@ -24,9 +24,9 @@ public class LibraryEventsConsumerConfig {
             ConsumerFactory<Object, Object> kafkaConsumerFactory) {
         ConcurrentKafkaListenerContainerFactory<Object, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
         configurer.configure(factory, kafkaConsumerFactory);
+        factory.setConcurrency(3); // 동일한 인스턴스로 3개의 쓰레드를 생성하여 메세지를 처리
 
-
-        factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
+//        factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
         return factory;
     }
 
