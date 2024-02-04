@@ -15,7 +15,7 @@ import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.kafka.listener.ContainerProperties;
 
 @Configuration
-@EnableKafka
+//@EnableKafka
 public class LibraryEventsConsumerConfig {
 
     @Bean
